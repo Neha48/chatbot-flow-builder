@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# Chatbot Flow Builder
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A drag-and-drop based flow builder built with [React Flow](https://reactflow.dev/). This tool allows users to visually build message flows (e.g., for chatbot or automation workflows) by connecting and editing text message nodes in a simple and intuitive UI.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Visual Node Editing** – Edit message content via a settings panel.
+- **Drag-and-Drop Node Creation** – Add message nodes from the side panel.
+- **Connect Nodes** – Create connections by linking source and target handles.
+- **Arrow Markers** – Visual arrows on edges for clarity.
+- **Delete Nodes/Edges** – Select and press `Backspace` or `Delete` to remove.
+- **Validation and Save** – Basic check before saving the flow.
 
-### `npm start`
+## 🧩 Project Structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+```bash
+src/
+├── App.js                # Main app layout and logic
+├── components/
+│   ├── FlowCanvas.js     # React Flow canvas with nodes and edges
+│   ├── NodePanel.js      # Draggable node components
+│   ├── SaveButton.js     # Save flow with basic validation
+│   ├── SettingPanel.js   # Node property editor
+│   └── nodes/
+│       └── TextNode.js   # Custom node type
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Keyboard Shortcuts
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| Action        | Key                     |
+| ------------- | ----------------------- |
+| Delete Node   | `Delete` / `Backspace`  |
+| Deselect Node | Click outside on canvas |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- [`react-flow`](https://reactflow.dev/)
+- [`react-icons`](https://react-icons.github.io/react-icons/)
+- [`react-toast`](https://www.npmjs.com/package/react-toast)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Install them if missing:
 
-### `npm run eject`
+```bash
+npm install reactflow react-icons react-toast
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🛠️ Customization Ideas
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Add more node types (e.g., delay, condition, etc.)
+- Export/import flow as JSON
+- Add undo/redo support
+- Customize edge types and styles
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
