@@ -11,7 +11,7 @@ const SaveButton = ({ nodes, edges }) => {
       toast.warn("Cannot save Flow");
     } else {
       const flowData = { nodes, edges };
-      console.log("Flow Saved:", flowData);
+      localStorage.setItem("flow-data", JSON.stringify(flowData));
       toast.success("Flow saved successfully!");
     }
   };

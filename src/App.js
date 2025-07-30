@@ -8,10 +8,25 @@ import SettingPanel from "./components/SettingPanel";
 
 function App() {
   const [selectedNode, setSelectedNode] = useState(null);
-
   // ReactFlow's state hook for managing nodes and their updates
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges] = useState([]);
+
+  const loadFlowFromLocal = () => {
+    const saved = localStorage.getItem("flow-data");
+    if (!saved) return { nodes: [], edges: [] };
+    try {
+      return JSON.parse(saved);
+    } catch {
+      return { nodes: [], edges: [] };
+    }
+  };
+
+  useEffect(() => {
+    const { nodes: savedNodes, edges: savedEdges } = loadFlowFromLocal();
+    setNodes(savedNodes || []);
+    setEdges(savedEdges || []);
+  }, []);
 
   // Keep selectedNode in sync with the updated nodes list
   useEffect(() => {
