@@ -1,24 +1,101 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toast";
+import { ReactFlowProvider, useNodesState } from "reactflow";
+import FlowCanvas from "./components/FlowCanvas";
+import NodePanel from "./components/NodePanel";
+import SaveButton from "./components/SaveButton";
+import SettingPanel from "./components/SettingPanel";
 
 function App() {
+  const [selectedNode, setSelectedNode] = useState(null);
+
+  // ReactFlow's state hook for managing nodes and their updates
+  const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const [edges, setEdges] = useState([]);
+
+  // Keep selectedNode in sync with the updated nodes list
+  useEffect(() => {
+    if (!selectedNode) return;
+
+    const updated = nodes.find((n) => n.id === selectedNode.id);
+    if (updated) {
+      setSelectedNode(updated);
+    }
+  }, [nodes, selectedNode]);
+
+  // Handle delete/backspace key to remove selected node and its edges
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Backspace" || e.key === "Delete") {
+        if (selectedNode) {
+          setNodes((nds) => nds.filter((n) => n.id !== selectedNode.id));
+          // Remove all edges connected to the deleted node
+          setEdges((eds) =>
+            eds.filter(
+              (e) =>
+                e.source !== selectedNode.id && e.target !== selectedNode.id
+            )
+          );
+          setSelectedNode(null);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [selectedNode]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <ReactFlowProvider>
+      {/* Toast notifications  */}
+      <ToastContainer position="top" style={{ backgroundColor: "white" }} />
+      <div style={{ backgroundColor: "#f0f0f0", padding: 1, height: "50px" }}>
+        <SaveButton nodes={nodes} edges={edges} />
+      </div>
+      <div>
+        <div
+          style={{
+            height: "calc(100vh - 50px)",
+            borderRight: "1px solid #ddd",
+            display: "flex",
+          }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          {/* Flow editor canvas area  */}
+          <div
+            style={{
+              borderRight: "1px solid #ccc",
+              width: "80vw",
+            }}
+          >
+            <FlowCanvas
+              nodes={nodes}
+              setNodes={setNodes}
+              edges={edges}
+              setEdges={setEdges}
+              onNodesChange={onNodesChange}
+              setSelectedNode={setSelectedNode}
+            />
+          </div>
+          {/* Side panel: shows node settings or node picker */}
+          <div
+            style={{
+              width: "20vw",
+            }}
+          >
+            {selectedNode ? (
+              <SettingPanel
+                selectedNode={selectedNode}
+                setSelectedNode={setSelectedNode}
+                setNodes={setNodes}
+                nodes={nodes}
+              />
+            ) : (
+              <NodePanel />
+            )}
+          </div>
+        </div>
+      </div>
+    </ReactFlowProvider>
   );
 }
 
