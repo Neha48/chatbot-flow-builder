@@ -11,7 +11,10 @@ A drag-and-drop based flow builder built with [React Flow](https://reactflow.dev
 - **Delete Nodes/Edges** – Select and press `Backspace` or `Delete` to remove.
 - **Validation and Save** – Basic check before saving the flow.
 
-## 🧩 Project Structure
+## Deployment Link
+https://chatbot-flow-builder-red.vercel.app/
+
+## Project Structure
 
 ```bash
 src/
@@ -48,13 +51,3 @@ Install them if missing:
 npm install reactflow react-icons react-toast
 ```
 
----
-
-## 🛠️ Customization Ideas
-
-- Add more node types (e.g., delay, condition, etc.)
-- Export/import flow as JSON
-- Add undo/redo support
-- Customize edge types and styles
-
----
